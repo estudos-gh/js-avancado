@@ -1,19 +1,7 @@
 var list = [
-    {
-        "desc": "rice",
-        "amount": "1",
-        "value": "5.40"
-    },
-    {
-        "desc": "beer",
-        "amount": "12",
-        "value": "1.99"
-    },
-    {
-        "desc": "meat",
-        "amount": "1",
-        "value": "15.00"
-    }   
+    { "desc": "rice", "amount": "1", "value": "5.40" },
+    { "desc": "beer", "amount": "12", "value": "1.99" },
+    { "desc": "meat", "amount": "1", "value": "15.00" }   
 ];
 
 function getTotal (list) {
@@ -42,7 +30,7 @@ function setList(list) {
             <td scope="row">'+formatDesc(list[key].desc)+'</td>\
             <td>'+list[key].amount+'</td>\
             <td>'+formatValue(list[key].value)+'</td>\
-            <td>Edit | Delete</td>\
+            <td><button onclick="setUpdate('+key+');" class="btn btn-default">Edit</button> | Delete</td>\
         </tr>';
     }
 
@@ -69,6 +57,35 @@ function formatValue(value) {
     str = "R$ " + str;
 
     return str;
+}
+
+function addData() {
+    var desc = document.getElementById("desc").value;
+    var amount = document.getElementById("amount").value;
+    var value = document.getElementById("value").value;
+
+    list.unshift({"desc": desc, "amount": amount, "value": value})
+
+    setList(list);
+}
+
+function setUpdate(id) {
+    var obj = list[id];
+    document.getElementById("desc").value = obj.desc;
+    document.getElementById("amount").value = obj.amount;
+    document.getElementById("value").value = obj.value;
+
+    document.getElementById("btnUpdate").style.display = "inline-block";
+    document.getElementById("btnAdd").style.display = "none";
+}
+
+function resetForm() {
+    document.getElementById("desc").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("value").value = "";
+    
+    document.getElementById("btnUpdate").style.display = "none";
+    document.getElementById("btnAdd").style.display = "inline-block";
 }
 
 setList(list);
