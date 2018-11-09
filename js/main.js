@@ -30,7 +30,7 @@ function setList(list) {
             <td scope="row">'+formatDesc(list[key].desc)+'</td>\
             <td>'+list[key].amount+'</td>\
             <td>'+formatValue(list[key].value)+'</td>\
-            <td><button onclick="setUpdate('+key+');" class="btn btn-default">Edit</button> | Delete</td>\
+            <td><button onclick="setUpdate('+key+');" class="btn btn-default">Edit</button> | <button onclick="deleteData('+key+');" class="btn btn-default">Delete</button></td>\
         </tr>';
     }
 
@@ -102,6 +102,24 @@ function updateData() {
 
     resetForm();
     setList(list);
+}
+
+function deleteData(id) {
+    if(confirm("Delete this item?")) {
+        if (id === list.length - 1) {
+            list.pop(); // Apaga o último elemento
+        } else if ( id === 0 ) {
+            list.shift(); //Apaga o primeiro elemento
+        } else {
+            var arrAuxIni = list.slice(0, id);
+            var arrAuxEnd = list.slice(id + 1);
+
+            list = arrAuxIni.concat(arrAuxEnd);
+
+        }
+    
+        setList(list);
+    }
 }
 
 setList(list);
